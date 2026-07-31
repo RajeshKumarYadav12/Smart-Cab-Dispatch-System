@@ -4,7 +4,7 @@ import { dispatchEngine } from './dispatch.interface.js';
 export const startDispatchScheduler = () => {
   console.log('Starting Dispatch Scheduler (Cron)...');
 
-  cron.schedule('*/15 * * * *', async () => {
+  cron.schedule('*/1 * * * *', async () => {
     try {
       console.log('[Scheduler] Triggering batch dispatch for to_venue');
       await dispatchEngine.runBatchDispatch('to_venue');
@@ -13,7 +13,7 @@ export const startDispatchScheduler = () => {
     }
   });
 
-  cron.schedule('*/30 * * * *', async () => {
+  cron.schedule('*/1 * * * *', async () => {
     try {
       console.log('[Scheduler] Triggering batch dispatch for return');
       await dispatchEngine.runBatchDispatch('return');

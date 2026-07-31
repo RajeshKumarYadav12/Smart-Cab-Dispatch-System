@@ -100,10 +100,16 @@ export const updateTripStatus = async (id, newStatus, userId, role, cancellation
     }
   });
 
-  if (newStatus === 'PENDING_ASSIGNMENT' && trip.isOnDemand) {
-    import('../dispatch/dispatch.service.js').then(({ runStreamingDispatch }) => {
-      runStreamingDispatch(trip._id).catch(err => console.error('Dispatch failed', err));
-    });
+  if (newStatus === 'PENDING_ASSIGNMENT') {
+    if (trip.isOnDemand) {
+      import('../dispatch/dispatch.service.js').then(({ runStreamingDispatch }) => {
+        runStreamingDispatch(trip._id).catch(err => console.error('Dispatch failed', err));
+      });
+    } else {
+      import('../dispatch/dispatch.service.js').then(({ runBatchDispatch }) => {
+        runBatchDispatch(trip.type || 'to_venue').catch(err => console.error('Batch Dispatch failed', err));
+      });
+    }
   }
   
   return trip;

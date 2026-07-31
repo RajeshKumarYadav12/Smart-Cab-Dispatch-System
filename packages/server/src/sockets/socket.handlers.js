@@ -2,7 +2,7 @@ import { ROOMS } from './rooms.js';
 import { Driver } from '../models/Driver.js';
 import { Trip } from '../models/Trip.js';
 import { verifyToken } from '../modules/auth/jwt.util.js';
-import cookie from 'cookie';
+import * as cookie from 'cookie';
 
 export const setupSocketHandlers = (io) => {
   io.use((socket, next) => {

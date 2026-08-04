@@ -1,20 +1,24 @@
-# 📄 ApnaRide: Smart Cab & Vehicle Dispatch System
+# 📈 Indian Market Intelligence System
 
-**A full-stack, real-time fleet management and intelligent dispatch platform built for corporate events, conferences, airport transfers, and large-scale transportation logistics.**
+**A scalable, real-time market intelligence and quantitative signal generation platform designed to monitor Indian stock market discussions, analyze social sentiment, detect spam, and transform textual market data into actionable trading signals.**
 
 ---
 
 # 🎯 Overview
 
-| Aspect | Details |
-|---------|---------|
-| **Architecture** | Monorepo (npm Workspaces) |
-| **Backend** | Node.js + Express.js |
-| **Frontend** | React + Vite + Tailwind CSS |
-| **Database** | MongoDB (Mongoose) |
-| **Real-Time Communication** | Socket.io |
-| **Maps & Navigation** | Google Maps API |
-| **Deployment Ready** | Docker & Docker Compose |
+| Aspect                  | Details                              |
+| ----------------------- | ------------------------------------ |
+| **Architecture**        | Producer-Consumer Data Pipeline      |
+| **Language**            | Python 3.9+                          |
+| **Data Collection**     | Selenium + Undetected ChromeDriver   |
+| **Text Processing**     | Unicode Normalization + NLP          |
+| **Deduplication**       | Exact Hashing + 64-bit SimHash / LSH |
+| **Storage**             | Snappy-Compressed Apache Parquet     |
+| **Signal Generation**   | Sentiment + TF-IDF + Volume Velocity |
+| **Analytics**           | Bootstrap Confidence Intervals       |
+| **Visualization**       | Matplotlib + Reservoir Sampling      |
+| **Big Data Processing** | PyArrow                              |
+| **Deployment Ready**    | Modular & Scalable Architecture      |
 
 ---
 
@@ -22,241 +26,752 @@
 
 ## Prerequisites
 
-- Node.js (v18+)
-- Docker & Docker Compose
-- MongoDB
-- Google Maps API Key (Optional)
+* Python 3.9+
+* Google Chrome
+* pip
+* Git
 
 ---
 
 ## Installation
 
+Clone the repository and navigate to the project directory:
+
 ```bash
-git clone <repository-url>
+git clone <your-repo-url>
 
-cd smart-cab-dispatch-system
+cd market-intel-system
+```
 
-npm install
+Create a virtual environment:
+
+```bash
+python -m venv venv
+```
+
+Activate the virtual environment.
+
+### Windows
+
+```bash
+venv\Scripts\activate
+```
+
+### Linux / macOS
+
+```bash
+source venv/bin/activate
+```
+
+Install the required dependencies:
+
+```bash
+pip install -r requirements.txt
 ```
 
 ---
 
-## Configure Environment Variables
+# 🔐 Configure Environment Variables
 
-Create a `.env` file inside:
+Create a configuration file according to your environment.
 
-```
-packages/server/.env
-```
+Example:
 
 ```env
-PORT=5000
-MONGO_URI=mongodb://localhost:27017/apnaride
-JWT_SECRET=your_secret_key
-GOOGLE_MAPS_API_KEY=your_google_maps_key
+# Scraper Configuration
+TARGET_COUNT=1000
+WORKERS=1
+
+# Rate Limiting
+RATE_LIMIT=10
+
+# Storage
+DATA_DIR=data/processed
+OUTPUT_DIR=output/plots
 ```
 
-> If the Google Maps API key is unavailable, the application automatically falls back to Haversine distance calculations and direct route visualization.
+> Authentication and scraper configuration can be customized according to the deployment environment.
 
 ---
 
-## Run the Application
+# 🚀 Run the Application
+
+The complete pipeline is orchestrated through `main.py`.
+
+The system follows a **Producer-Consumer architecture**, separating I/O-bound data collection from CPU-bound processing.
+
+---
+
+## 🌐 Live Data Collection
+
+Run the scraper against Indian stock market hashtags:
 
 ```bash
-npm run start
+python main.py \
+  --hashtags "#nifty50" "#sensex" "#intraday" "#banknifty" \
+  --target-count 1000 \
+  --workers 1
 ```
 
-This starts:
+The system launches Chrome and begins collecting market-related discussions.
 
-- MongoDB (Docker)
-- Backend API
-- Guest Application
-- Admin Portal
+If authentication is required, the scraper supports manual authentication before continuing the collection process.
+
+> Using `--workers 1` is recommended for manual authentication workflows.
 
 ---
 
-## Production Build
+## 🧪 Mock Data Mode
+
+For testing, development, and CI/CD environments, use the built-in synthetic data generator:
 
 ```bash
-npm run build
+python main.py \
+  --mock \
+  --hashtags "#nifty50" "#sensex" "#intraday" "#banknifty" \
+  --target-count 1200 \
+  --workers 4
 ```
 
-Builds all frontend applications for production deployment.
+Mock mode allows you to test:
+
+* Data collection pipeline
+* Text normalization
+* Spam detection
+* SimHash deduplication
+* Parquet storage
+* Sentiment analysis
+* Signal generation
+* Visualization
+
+without depending on live social-media data.
 
 ---
 
-# 🌐 Application URLs
+# ✨ Key Features
 
-### Backend API
+* 📡 Real-Time Indian Market Discussion Monitoring
+* 🛡️ Resilient Selenium-Based Data Collection
+* 🚦 Token Bucket Rate Limiting
+* 🔄 Graceful Mock Data Fallback
+* ⚡ O(1) Exact Hash Deduplication
+* 🧠 64-bit SimHash / LSH Near-Duplicate Detection
+* 🧹 Unicode Text Cleaning & Normalization
+* 📦 Snappy-Compressed Parquet Storage
+* 📅 Date-Partitioned Data Architecture
+* 📊 TF-IDF Keyword Momentum Analysis
+* 💭 Lexicon-Based Sentiment Analysis
+* 📈 Volume Velocity Detection
+* 🧮 Composite Quantitative Trading Signals
+* 📐 Bootstrap Confidence Intervals
+* 💾 Memory-Efficient Data Processing
+* 🌊 Streaming Dataset Visualization
+* 📉 Reservoir Sampling for Large Datasets
+* 🚀 Scalable Producer-Consumer Architecture
 
+---
+
+# 🧠 Market Intelligence Pipeline
+
+The system processes market discussions through multiple stages.
+
+```text
+                    ┌──────────────────────┐
+                    │   Social Media Data  │
+                    │  #NIFTY50 #SENSEX    │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │   Data Collection    │
+                    │ Selenium + RateLimit │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │ Text Processing      │
+                    │ Cleaning & Normalize  │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │ Spam Deduplication   │
+                    │ Hash + SimHash / LSH │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │ Optimized Storage     │
+                    │ Parquet + Snappy     │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │ Signal Engine        │
+                    │ Sentiment + TF-IDF   │
+                    │ + Volume Velocity    │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │ Quantitative Signal  │
+                    │ + Confidence Interval│
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │ Visualization &      │
+                    │ Market Analytics     │
+                    └──────────────────────┘
 ```
-http://127.0.0.1:5000
+
+---
+
+# 🛡️ Data Collection Engine
+
+The collection layer is designed to remain resilient under real-world scraping conditions.
+
+### Features
+
+* Selenium-based browser automation
+* Undetected ChromeDriver integration
+* Token Bucket rate limiter
+* Configurable worker architecture
+* Login-wall handling
+* Manual authentication support
+* Synthetic data fallback
+* Producer-Consumer queue architecture
+
+### Rate Limiting
+
+The `TokenBucketRateLimiter` controls request frequency and helps prevent excessive requests.
+
+```text
+Producer
+   │
+   ├── Rate Limiter
+   │
+   ├── Selenium
+   │
+   └── Raw Posts
+          │
+          ▼
+       Queue
+          │
+          ▼
+     Consumers
 ```
 
-### Guest Application
+---
 
+# 🧹 Text Processing Engine
+
+Raw market discussions are normalized before further analysis.
+
+### Processing Pipeline
+
+```text
+Raw Text
+   │
+   ├── Unicode Normalization
+   ├── Whitespace Cleanup
+   ├── Noise Removal
+   ├── Text Normalization
+   └── Standardized Output
 ```
-http://localhost:5174
+
+This ensures that similar text representations can be identified efficiently during deduplication and NLP processing.
+
+---
+
+# 🧠 Deduplication Engine
+
+The system uses a two-stage deduplication strategy.
+
+## Exact Duplicate Detection
+
+Exact hashes provide approximately **O(1)** lookup performance for identical content.
+
+```text
+Text
+ │
+ ▼
+Hash
+ │
+ ├── Exists → Duplicate
+ │
+ └── New → Continue
 ```
 
-### Admin / Driver Portal
+---
 
+## Near-Duplicate Detection
+
+For slightly modified spam or repeated posts, the system uses **64-bit SimHash** with Locality-Sensitive Hashing concepts.
+
+Example:
+
+```text
+"BUY NIFTY NOW 🚀"
+
+"BUY NIFTY NOW 🚀🚀"
+
+"BUY NIFTY NOW!!!"
 ```
-http://localhost:5175
+
+Although these texts are not identical, SimHash can identify their similarity and prevent repeated spam from distorting market signals.
+
+---
+
+# 📦 Data Storage
+
+Processed data is stored using **Apache Parquet** with Snappy compression.
+
+### Partitioning Strategy
+
+```text
+data/
+└── processed/
+    ├── date=2026-08-01/
+    │   └── data.parquet
+    │
+    ├── date=2026-08-02/
+    │   └── data.parquet
+    │
+    └── date=2026-08-03/
+        └── data.parquet
+```
+
+### Advantages
+
+* Columnar storage
+* Efficient compression
+* Fast analytical queries
+* Date-based partition pruning
+* Reduced memory consumption
+* Suitable for large datasets
+* Efficient integration with PyArrow
+
+---
+
+# 📊 Signal Generation Engine
+
+The signal engine converts textual market discussions into quantitative indicators.
+
+## Sentiment Analysis
+
+A lexicon-based sentiment model evaluates market discussions and generates sentiment scores.
+
+```text
+Positive Discussion
+        │
+        ▼
+  Positive Score
+
+Negative Discussion
+        │
+        ▼
+  Negative Score
 ```
 
 ---
 
-# ✨ Features
+## TF-IDF Keyword Momentum
 
-- 🚖 Intelligent Driver Dispatch Engine
-- ⚡ Real-Time Driver Tracking using Socket.io
-- 📍 Google Maps Integration with Live ETA
-- 👥 Smart Ride Pooling
-- 🧠 Hungarian Algorithm for Batch Dispatch
-- ⚙️ Greedy Cost Function for Instant Requests
-- 🔄 Automatic Trip Re-optimization
-- 🔐 JWT Authentication & Role-Based Access Control
-- 📱 Separate Guest & Driver Interfaces
-- 📊 Fleet Monitoring Dashboard
-- 🚦 Live Driver Status Management
-- 📦 Monorepo Architecture with npm Workspaces
-- 🐳 Docker Support
+TF-IDF is used to identify keywords gaining importance within the collected market discussions.
 
----
+Example:
 
-# 🚘 Application Modules
+```text
+NIFTY
+BANKNIFTY
+BREAKOUT
+SUPPORT
+RESISTANCE
+BULLISH
+BEARISH
+```
 
-## Guest App
-
-- Guest Registration & Authentication
-- On-demand Ride Requests
-- Live Ride Tracking
-- Real-time ETA Updates
-- Pickup & Drop-off Maps
+The system can track changes in keyword relevance over time.
 
 ---
 
-## Driver Terminal
+## Volume Velocity
 
-- Online / Offline Status
-- Accept & Reject Trips
-- Live Navigation
-- Current Trip Details
-- Automatic Availability Management
+The system monitors the rate at which market-related discussions are increasing or decreasing.
 
----
+```text
+Discussion Volume
+       │
+       ▼
+ ┌───────────────┐
+ │ Time Window   │
+ └───────┬───────┘
+         │
+         ▼
+ Volume Velocity
+```
 
-## Operations Dashboard
-
-- Driver Management
-- Guest Management
-- Fleet Monitoring
-- Live Trip Tracking
-- Manual Ride Approval
-- Dispatch Alerts
-- Operational Analytics
+A sudden increase in discussion volume can indicate increased market attention.
 
 ---
 
-# 🧠 Dispatch Engine
+# 📈 Composite Trading Signal
 
-The core dispatch engine intelligently assigns vehicles using multiple optimization strategies.
+The final quantitative signal combines multiple market indicators:
 
-### Streaming Dispatch
+```text
+                 ┌─────────────────┐
+                 │   Sentiment     │
+                 └────────┬────────┘
+                          │
+                          ▼
+                 ┌─────────────────┐
+                 │ TF-IDF Momentum │
+                 └────────┬────────┘
+                          │
+                          ▼
+                 ┌─────────────────┐
+                 │ Volume Velocity │
+                 └────────┬────────┘
+                          │
+                          ▼
+                 ┌─────────────────┐
+                 │ Composite Signal│
+                 └────────┬────────┘
+                          │
+                          ▼
+                 ┌─────────────────┐
+                 │ Confidence      │
+                 │ Interval        │
+                 └─────────────────┘
+```
 
-- Greedy Cost Function
-- ETA-based Driver Selection
-- Idle Time Optimization
-- Wait Time Minimization
+The resulting signal provides a quantitative representation of market discussion dynamics.
 
-### Batch Dispatch
-
-- Hungarian Algorithm
-- Global Fleet Cost Optimization
-- Multi-trip Assignment
-- Efficient Driver Allocation
-
-### Dynamic Re-optimization
-
-- Continuous ETA Monitoring
-- Traffic-aware Reassignment
-- Automatic Trip Redistribution
-- Fleet Utilization Optimization
-
----
-
-# 🛠 Technology Stack
-
-## Backend
-
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose
-- Socket.io
+> **Note:** The generated signal is an analytical indicator and should not be treated as financial advice or a standalone trading strategy.
 
 ---
 
-## Frontend
+# 📐 Statistical Confidence Estimation
 
-- React
-- Vite
-- Tailwind CSS
+Bootstrap resampling is used to estimate confidence intervals around generated signals.
+
+This provides additional statistical context instead of relying solely on a single point estimate.
+
+```text
+Collected Data
+      │
+      ▼
+Bootstrap Samples
+      │
+      ▼
+Signal Distribution
+      │
+      ▼
+Confidence Interval
+```
 
 ---
 
-## Integrations
+# 📊 Memory-Efficient Visualization
 
-- Google Maps API
-- Distance Matrix API
-- Directions API
+The visualization layer is designed to handle large datasets without loading the entire dataset into memory.
+
+### Techniques Used
+
+* Reservoir Sampling
+* Chunked PyArrow dataset reading
+* Streaming processing
+* Incremental aggregation
+
+This makes the system more suitable for large-scale market discussion datasets.
 
 ---
 
-## DevOps & Tools
+# 📉 Generated Analytics
 
-- Docker
-- Docker Compose
-- npm Workspaces
+After successful execution, the system generates analytical visualizations.
+
+### Signal Time Series
+
+```text
+output/plots/
+└── signal_timeseries.png
+```
+
+Displays market signal behavior over time.
+
+### Volume Heatmap
+
+```text
+output/plots/
+└── volume_heatmap.png
+```
+
+Visualizes discussion volume and market attention patterns.
 
 ---
 
 # 📂 Project Structure
 
-```
-smart-cab-dispatch-system/
+```text
+market-intel-system/
 │
-├── packages/
-│   ├── server/
-│   ├── admin-portal/
-│   ├── guest-app/
-│   └── shared/
+├── src/
+│   │
+│   ├── scraper/
+│   │   ├── selenium_scraper.py
+│   │   ├── rate_limiter.py
+│   │   └── mock_generator.py
+│   │
+│   ├── processing/
+│   │   ├── text_cleaner.py
+│   │   └── normalizer.py
+│   │
+│   ├── storage/
+│   │   ├── parquet_writer.py
+│   │   ├── simhash.py
+│   │   └── schema.py
+│   │
+│   ├── signals/
+│   │   ├── tfidf.py
+│   │   ├── sentiment.py
+│   │   ├── signal_engine.py
+│   │   └── confidence.py
+│   │
+│   └── visualization/
+│       └── streaming_plotter.py
 │
-├── package.json
+├── config/
+│   └── settings.py
+│
+├── data/
+│   └── processed/
+│
+├── output/
+│   └── plots/
+│
+├── docs/
+│   └── TECHNICAL_APPROACH.md
+│
+├── main.py
+├── requirements.txt
 └── README.md
 ```
 
 ---
 
+# 🛠 Technology Stack
+
+## Data Collection
+
+* Python
+* Selenium
+* Undetected ChromeDriver
+
+---
+
+## Data Processing
+
+* Python
+* NLP / Text Processing
+* Hashing
+* SimHash
+* Locality-Sensitive Hashing
+
+---
+
+## Analytics
+
+* TF-IDF
+* Sentiment Analysis
+* Bootstrap Statistics
+* Volume Velocity
+
+---
+
+## Storage
+
+* Apache Parquet
+* PyArrow
+* Snappy Compression
+
+---
+
+## Visualization
+
+* Matplotlib
+* Reservoir Sampling
+* Streaming Data Processing
+
+---
+
+# ⚡ Performance & Scalability
+
+The architecture focuses on efficient processing of large volumes of social-market data.
+
+### Algorithmic Efficiency
+
+| Component                | Approach             |
+| ------------------------ | -------------------- |
+| Exact Deduplication      | O(1) Hash Lookup     |
+| Near-Duplicate Detection | 64-bit SimHash / LSH |
+| Data Storage             | Columnar Parquet     |
+| Compression              | Snappy               |
+| Large Dataset Processing | Chunked PyArrow      |
+| Visualization            | Reservoir Sampling   |
+| Data Collection          | Producer-Consumer    |
+| Rate Control             | Token Bucket         |
+
+---
+
+# 🔄 Pipeline Architecture
+
+The system separates data collection from processing using a Producer-Consumer architecture.
+
+```text
+                 ┌─────────────────┐
+                 │ Scraper Workers │
+                 └────────┬────────┘
+                          │
+                          ▼
+                 ┌─────────────────┐
+                 │ Processing Queue│
+                 └────────┬────────┘
+                          │
+                          ▼
+              ┌───────────────────────┐
+              │ Processing Workers    │
+              │                       │
+              │ • Cleaning            │
+              │ • Deduplication       │
+              │ • Feature Extraction │
+              └───────────┬───────────┘
+                          │
+                          ▼
+                 ┌─────────────────┐
+                 │ Parquet Storage │
+                 └────────┬────────┘
+                          │
+                          ▼
+                 ┌─────────────────┐
+                 │ Signal Engine   │
+                 └────────┬────────┘
+                          │
+                          ▼
+                 ┌─────────────────┐
+                 │ Visualization  │
+                 └─────────────────┘
+```
+
+This architecture allows the collection and processing stages to scale independently.
+
+---
+
+# 📊 Sample Output
+
+After running the pipeline, generated files can be found in:
+
+### Processed Market Data
+
+```text
+data/processed/date=YYYY-MM-DD/
+```
+
+Contains cleaned and deduplicated Parquet datasets.
+
+### Analytical Results
+
+```text
+output/plots/
+```
+
+Contains:
+
+```text
+signal_timeseries.png
+volume_heatmap.png
+```
+
+---
+
+# 🧪 Testing
+
+Use mock mode to test the complete pipeline without relying on live data collection:
+
+```bash
+python main.py \
+  --mock \
+  --hashtags "#nifty50" "#sensex" "#intraday" "#banknifty" \
+  --target-count 1200 \
+  --workers 4
+```
+
+This is recommended for:
+
+* Local development
+* Unit/integration testing
+* CI/CD pipelines
+* Performance benchmarking
+* Algorithm validation
+
+---
+
+# 📚 Technical Documentation
+
+For a deeper explanation of the system architecture, algorithmic decisions, performance trade-offs, and scalability considerations:
+
+```text
+docs/TECHNICAL_APPROACH.md
+```
+
+The document covers:
+
+* Architecture decisions
+* Deduplication strategy
+* Data storage design
+* Signal generation methodology
+* Memory optimization
+* Scalability strategy
+* Performance considerations
+
+---
+
+# 🔒 Responsible Data Collection
+
+The system is intended for research, analytics, and market intelligence purposes.
+
+When collecting public online data, ensure that your implementation complies with:
+
+* Applicable laws and regulations
+* Platform terms of service
+* Rate limits
+* Authentication requirements
+* Privacy requirements
+
+---
+
 # 📌 Project Highlights
 
-The platform is designed to be:
+The Indian Market Intelligence System is designed to be:
 
-- Real-Time
-- Event-Driven
-- Scalable
-- Modular
-- Fleet Optimized
-- Production Ready
-- Algorithm Driven
-- Responsive
-- Role-Based Secure
+* ⚡ High Performance
+* 📈 Quantitative
+* 🧠 Algorithm Driven
+* 💾 Memory Efficient
+* 📦 Big Data Ready
+* 🔄 Resilient
+* 🧩 Modular
+* 🚀 Scalable
+* 📊 Analytics Focused
+* 🧪 CI/CD Friendly
+* 🏗️ Production Oriented
 
 ---
 
 # 🚀 Status
 
-**Production Ready**
+**Production-Oriented Research & Analytics System**
 
-**Stack:** Node.js • Express.js • MongoDB • React • Vite • Tailwind CSS • Socket.io • Google Maps API • Docker
+**Stack:** Python • Selenium • Undetected ChromeDriver • SimHash • LSH • TF-IDF • Parquet • PyArrow • Snappy • Matplotlib

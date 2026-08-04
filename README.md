@@ -1,24 +1,23 @@
-# 📈 Indian Market Intelligence System
+# 🚖 ApnaRide: Smart Cab & Vehicle Dispatch System
 
-**A scalable, real-time market intelligence and quantitative signal generation platform designed to monitor Indian stock market discussions, analyze social sentiment, detect spam, and transform textual market data into actionable trading signals.**
+**A full-stack, real-time fleet management and intelligent vehicle dispatch platform built for corporate events, conferences, airport transfers, and large-scale transportation logistics.**
 
 ---
 
 # 🎯 Overview
 
-| Aspect                  | Details                              |
-| ----------------------- | ------------------------------------ |
-| **Architecture**        | Producer-Consumer Data Pipeline      |
-| **Language**            | Python 3.9+                          |
-| **Data Collection**     | Selenium + Undetected ChromeDriver   |
-| **Text Processing**     | Unicode Normalization + NLP          |
-| **Deduplication**       | Exact Hashing + 64-bit SimHash / LSH |
-| **Storage**             | Snappy-Compressed Apache Parquet     |
-| **Signal Generation**   | Sentiment + TF-IDF + Volume Velocity |
-| **Analytics**           | Bootstrap Confidence Intervals       |
-| **Visualization**       | Matplotlib + Reservoir Sampling      |
-| **Big Data Processing** | PyArrow                              |
-| **Deployment Ready**    | Modular & Scalable Architecture      |
+| Aspect                      | Details                                    |
+| --------------------------- | ------------------------------------------ |
+| **Architecture**            | Monorepo with npm Workspaces               |
+| **Backend**                 | Node.js + Express.js                       |
+| **Frontend**                | React + Vite + Tailwind CSS                |
+| **Database**                | MongoDB + Mongoose                         |
+| **Real-Time Communication** | Socket.io                                  |
+| **Maps & Navigation**       | Google Maps API                            |
+| **Authentication**          | JWT + Role-Based Access Control            |
+| **Dispatch Optimization**   | Greedy Cost Function + Hungarian Algorithm |
+| **Deployment**              | Docker + Docker Compose                    |
+| **System Type**             | Real-Time Event-Driven Platform            |
 
 ---
 
@@ -26,752 +25,681 @@
 
 ## Prerequisites
 
-* Python 3.9+
-* Google Chrome
-* pip
-* Git
+Before running the application, make sure the following are installed:
+
+* Node.js v18+
+* npm
+* Docker
+* Docker Compose
+* MongoDB
+* Google Maps API Key *(Optional)*
 
 ---
 
-## Installation
+# 📥 Installation
 
-Clone the repository and navigate to the project directory:
-
-```bash
-git clone <your-repo-url>
-
-cd market-intel-system
-```
-
-Create a virtual environment:
+Clone the repository:
 
 ```bash
-python -m venv venv
+git clone <repository-url>
 ```
 
-Activate the virtual environment.
-
-### Windows
+Navigate to the project directory:
 
 ```bash
-venv\Scripts\activate
+cd smart-cab-dispatch-system
 ```
 
-### Linux / macOS
+Install all workspace dependencies:
 
 ```bash
-source venv/bin/activate
+npm install
 ```
 
-Install the required dependencies:
-
-```bash
-pip install -r requirements.txt
-```
+The project uses **npm Workspaces** to manage the backend, guest application, admin portal, and shared modules from a single monorepo.
 
 ---
 
 # 🔐 Configure Environment Variables
 
-Create a configuration file according to your environment.
+Create a `.env` file inside:
 
-Example:
-
-```env
-# Scraper Configuration
-TARGET_COUNT=1000
-WORKERS=1
-
-# Rate Limiting
-RATE_LIMIT=10
-
-# Storage
-DATA_DIR=data/processed
-OUTPUT_DIR=output/plots
+```text
+packages/server/.env
 ```
 
-> Authentication and scraper configuration can be customized according to the deployment environment.
+Add the following configuration:
+
+```env
+PORT=5000
+
+MONGO_URI=mongodb://localhost:27017/apnaride
+
+JWT_SECRET=your_secret_key
+
+GOOGLE_MAPS_API_KEY=your_google_maps_key
+```
+
+### Google Maps Configuration
+
+The Google Maps API key is optional.
+
+If the API key is unavailable, the application can fall back to:
+
+* Haversine distance calculations
+* Direct route visualization
+* Basic distance-based dispatch calculations
 
 ---
 
 # 🚀 Run the Application
 
-The complete pipeline is orchestrated through `main.py`.
+Start the complete application using:
 
-The system follows a **Producer-Consumer architecture**, separating I/O-bound data collection from CPU-bound processing.
+```bash
+npm run start
+```
+
+This starts the complete ApnaRide environment, including:
+
+* MongoDB
+* Backend API
+* Guest Application
+* Admin / Driver Portal
 
 ---
 
-## 🌐 Live Data Collection
+# 🏗️ Production Build
 
-Run the scraper against Indian stock market hashtags:
+Build all frontend applications for production:
 
 ```bash
-python main.py \
-  --hashtags "#nifty50" "#sensex" "#intraday" "#banknifty" \
-  --target-count 1000 \
-  --workers 1
+npm run build
 ```
 
-The system launches Chrome and begins collecting market-related discussions.
-
-If authentication is required, the scraper supports manual authentication before continuing the collection process.
-
-> Using `--workers 1` is recommended for manual authentication workflows.
+This generates optimized production builds for the frontend applications.
 
 ---
 
-## 🧪 Mock Data Mode
+# 🌐 Application URLs
 
-For testing, development, and CI/CD environments, use the built-in synthetic data generator:
+## Backend API
 
-```bash
-python main.py \
-  --mock \
-  --hashtags "#nifty50" "#sensex" "#intraday" "#banknifty" \
-  --target-count 1200 \
-  --workers 4
+```text
+http://127.0.0.1:5000
 ```
 
-Mock mode allows you to test:
+## Guest Application
 
-* Data collection pipeline
-* Text normalization
-* Spam detection
-* SimHash deduplication
-* Parquet storage
-* Sentiment analysis
-* Signal generation
-* Visualization
+```text
+http://localhost:5174
+```
 
-without depending on live social-media data.
+## Admin / Driver Portal
+
+```text
+http://localhost:5175
+```
 
 ---
 
 # ✨ Key Features
 
-* 📡 Real-Time Indian Market Discussion Monitoring
-* 🛡️ Resilient Selenium-Based Data Collection
-* 🚦 Token Bucket Rate Limiting
-* 🔄 Graceful Mock Data Fallback
-* ⚡ O(1) Exact Hash Deduplication
-* 🧠 64-bit SimHash / LSH Near-Duplicate Detection
-* 🧹 Unicode Text Cleaning & Normalization
-* 📦 Snappy-Compressed Parquet Storage
-* 📅 Date-Partitioned Data Architecture
-* 📊 TF-IDF Keyword Momentum Analysis
-* 💭 Lexicon-Based Sentiment Analysis
-* 📈 Volume Velocity Detection
-* 🧮 Composite Quantitative Trading Signals
-* 📐 Bootstrap Confidence Intervals
-* 💾 Memory-Efficient Data Processing
-* 🌊 Streaming Dataset Visualization
-* 📉 Reservoir Sampling for Large Datasets
-* 🚀 Scalable Producer-Consumer Architecture
+* 🚖 Intelligent Driver Dispatch Engine
+* ⚡ Real-Time Driver Tracking
+* 🔄 Socket.io Real-Time Communication
+* 📍 Google Maps Integration
+* 🗺️ Live ETA Calculation
+* 👥 Smart Ride Pooling
+* 🧠 Hungarian Algorithm for Batch Dispatch
+* ⚙️ Greedy Cost Function for Instant Requests
+* 🔄 Automatic Trip Re-optimization
+* 🔐 JWT Authentication
+* 👤 Role-Based Access Control
+* 📱 Separate Guest & Driver Interfaces
+* 📊 Fleet Monitoring Dashboard
+* 🚦 Live Driver Status Management
+* 🐳 Docker & Docker Compose Support
+* 📦 Monorepo Architecture
+* 🚀 Scalable Event-Driven Architecture
 
 ---
 
-# 🧠 Market Intelligence Pipeline
+# 🏗️ System Architecture
 
-The system processes market discussions through multiple stages.
+ApnaRide follows a modular monorepo architecture where the backend, guest application, driver/admin portal, and shared resources are maintained within a single repository.
 
 ```text
-                    ┌──────────────────────┐
-                    │   Social Media Data  │
-                    │  #NIFTY50 #SENSEX    │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │   Data Collection    │
-                    │ Selenium + RateLimit │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │ Text Processing      │
-                    │ Cleaning & Normalize  │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │ Spam Deduplication   │
-                    │ Hash + SimHash / LSH │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │ Optimized Storage     │
-                    │ Parquet + Snappy     │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │ Signal Engine        │
-                    │ Sentiment + TF-IDF   │
-                    │ + Volume Velocity    │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │ Quantitative Signal  │
-                    │ + Confidence Interval│
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │ Visualization &      │
-                    │ Market Analytics     │
-                    └──────────────────────┘
+                         ┌─────────────────────┐
+                         │      Guest App      │
+                         │   React + Vite      │
+                         └──────────┬──────────┘
+                                    │
+                                    │
+                                    ▼
+                         ┌─────────────────────┐
+                         │     Backend API     │
+                         │ Node.js + Express   │
+                         └──────────┬──────────┘
+                                    │
+                 ┌──────────────────┼──────────────────┐
+                 │                  │                  │
+                 ▼                  ▼                  ▼
+        ┌────────────────┐ ┌────────────────┐ ┌────────────────┐
+        │   MongoDB      │ │   Socket.io    │ │ Dispatch Engine│
+        │   Database     │ │ Real-Time Data │ │ Optimization   │
+        └────────────────┘ └────────────────┘ └───────┬────────┘
+                                                      │
+                                                      ▼
+                                             ┌─────────────────┐
+                                             │ Driver / Admin  │
+                                             │     Portal      │
+                                             └─────────────────┘
 ```
 
 ---
 
-# 🛡️ Data Collection Engine
+# 🚘 Application Modules
 
-The collection layer is designed to remain resilient under real-world scraping conditions.
+## 👤 Guest Application
+
+The Guest Application provides passengers with a simple interface for requesting and tracking rides.
 
 ### Features
 
-* Selenium-based browser automation
-* Undetected ChromeDriver integration
-* Token Bucket rate limiter
-* Configurable worker architecture
-* Login-wall handling
-* Manual authentication support
-* Synthetic data fallback
-* Producer-Consumer queue architecture
+* Guest Registration
+* Guest Authentication
+* On-Demand Ride Requests
+* Pickup Location Selection
+* Drop-Off Location Selection
+* Live Ride Tracking
+* Real-Time ETA Updates
+* Pickup & Drop-Off Maps
+* Ride Status Updates
 
-### Rate Limiting
+---
 
-The `TokenBucketRateLimiter` controls request frequency and helps prevent excessive requests.
+# 🚗 Driver Terminal
+
+The Driver Terminal allows drivers to manage their availability and assigned trips.
+
+### Features
+
+* Driver Login
+* Online / Offline Status
+* Accept Trips
+* Reject Trips
+* Current Trip Information
+* Live Navigation
+* Pickup Information
+* Drop-Off Information
+* Automatic Availability Management
+* Real-Time Trip Updates
+
+---
+
+# 🖥️ Operations Dashboard
+
+The Operations Dashboard provides administrators with centralized fleet management.
+
+### Features
+
+* Driver Management
+* Guest Management
+* Fleet Monitoring
+* Live Trip Tracking
+* Manual Ride Approval
+* Dispatch Alerts
+* Driver Status Monitoring
+* Trip Management
+* Operational Analytics
+
+---
+
+# 🧠 Intelligent Dispatch Engine
+
+The dispatch engine is the core component responsible for assigning available vehicles to ride requests.
+
+The system supports multiple dispatch strategies depending on the request volume and fleet conditions.
+
+---
+
+## ⚡ Streaming Dispatch
+
+For individual or instant ride requests, the system uses a greedy cost-based dispatch strategy.
+
+### Optimization Factors
+
+* Driver ETA
+* Driver Distance
+* Idle Time
+* Passenger Wait Time
+* Driver Availability
 
 ```text
-Producer
-   │
-   ├── Rate Limiter
-   │
-   ├── Selenium
-   │
-   └── Raw Posts
-          │
-          ▼
-       Queue
-          │
-          ▼
-     Consumers
+Ride Request
+      │
+      ▼
+Find Available Drivers
+      │
+      ▼
+Calculate Driver Cost
+      │
+      ├── ETA
+      ├── Distance
+      ├── Idle Time
+      └── Wait Time
+      │
+      ▼
+Select Lowest-Cost Driver
+      │
+      ▼
+Assign Trip
+```
+
+This approach allows the system to respond quickly to individual requests.
+
+---
+
+# 🧮 Batch Dispatch
+
+When multiple ride requests arrive simultaneously, ApnaRide uses the **Hungarian Algorithm** to optimize fleet assignment.
+
+### Batch Optimization
+
+* Multiple drivers
+* Multiple ride requests
+* Global assignment cost
+* Fleet-wide optimization
+* Efficient vehicle allocation
+
+```text
+             Ride Requests
+          ┌───────┬───────┐
+          ▼       ▼       ▼
+        Ride 1  Ride 2  Ride 3
+          │       │       │
+          └───────┬───────┘
+                  │
+                  ▼
+          ┌───────────────┐
+          │ Cost Matrix   │
+          └───────┬───────┘
+                  │
+                  ▼
+          ┌───────────────┐
+          │   Hungarian   │
+          │   Algorithm   │
+          └───────┬───────┘
+                  │
+                  ▼
+          Optimized Driver
+             Assignment
+```
+
+The goal is to minimize the overall assignment cost across the available fleet.
+
+---
+
+# 🔄 Dynamic Trip Re-optimization
+
+The system continuously monitors active trips and driver conditions.
+
+### Re-optimization capabilities
+
+* Continuous ETA monitoring
+* Traffic-aware reassignment
+* Automatic trip redistribution
+* Driver availability updates
+* Fleet utilization optimization
+* Dynamic assignment adjustments
+
+```text
+Active Trips
+     │
+     ▼
+Monitor ETA / Driver Status
+     │
+     ▼
+Detect Optimization Opportunity
+     │
+     ▼
+Recalculate Assignments
+     │
+     ▼
+Redistribute Trips
+     │
+     ▼
+Optimized Fleet
 ```
 
 ---
 
-# 🧹 Text Processing Engine
+# ⚡ Real-Time Communication
 
-Raw market discussions are normalized before further analysis.
+ApnaRide uses **Socket.io** to maintain real-time communication between:
 
-### Processing Pipeline
+* Guest Application
+* Driver Terminal
+* Operations Dashboard
+* Backend Server
+
+Real-time events can be used for:
+
+* Driver location updates
+* Ride status changes
+* Trip assignments
+* Driver availability
+* ETA updates
+* Dispatch notifications
 
 ```text
-Raw Text
-   │
-   ├── Unicode Normalization
-   ├── Whitespace Cleanup
-   ├── Noise Removal
-   ├── Text Normalization
-   └── Standardized Output
+Guest App
+    │
+    │
+    ▼
+Socket.io
+    │
+    ▼
+Backend
+    │
+    ├──────────────► Driver Terminal
+    │
+    └──────────────► Operations Dashboard
 ```
-
-This ensures that similar text representations can be identified efficiently during deduplication and NLP processing.
 
 ---
 
-# 🧠 Deduplication Engine
+# 📍 Maps & Navigation
 
-The system uses a two-stage deduplication strategy.
+The platform integrates with Google Maps services for location and navigation functionality.
 
-## Exact Duplicate Detection
+### Integrations
 
-Exact hashes provide approximately **O(1)** lookup performance for identical content.
+* Google Maps API
+* Distance Matrix API
+* Directions API
+
+### Capabilities
+
+* Pickup location visualization
+* Drop-off location visualization
+* Distance calculation
+* Route visualization
+* ETA calculation
+* Driver navigation support
+
+---
+
+# 🔐 Authentication & Security
+
+The backend uses JWT-based authentication and role-based authorization.
+
+### Supported Roles
+
+* Guest
+* Driver
+* Administrator
 
 ```text
-Text
+User
  │
  ▼
-Hash
+JWT Authentication
  │
- ├── Exists → Duplicate
+ ▼
+Role Verification
  │
- └── New → Continue
+ ├── Guest
+ │
+ ├── Driver
+ │
+ └── Administrator
 ```
+
+This ensures users can access only the functionality associated with their role.
 
 ---
 
-## Near-Duplicate Detection
+# 🛠️ Technology Stack
 
-For slightly modified spam or repeated posts, the system uses **64-bit SimHash** with Locality-Sensitive Hashing concepts.
+## Backend
 
-Example:
-
-```text
-"BUY NIFTY NOW 🚀"
-
-"BUY NIFTY NOW 🚀🚀"
-
-"BUY NIFTY NOW!!!"
-```
-
-Although these texts are not identical, SimHash can identify their similarity and prevent repeated spam from distorting market signals.
+* Node.js
+* Express.js
+* MongoDB
+* Mongoose
+* Socket.io
+* JWT
 
 ---
 
-# 📦 Data Storage
+## Frontend
 
-Processed data is stored using **Apache Parquet** with Snappy compression.
-
-### Partitioning Strategy
-
-```text
-data/
-└── processed/
-    ├── date=2026-08-01/
-    │   └── data.parquet
-    │
-    ├── date=2026-08-02/
-    │   └── data.parquet
-    │
-    └── date=2026-08-03/
-        └── data.parquet
-```
-
-### Advantages
-
-* Columnar storage
-* Efficient compression
-* Fast analytical queries
-* Date-based partition pruning
-* Reduced memory consumption
-* Suitable for large datasets
-* Efficient integration with PyArrow
+* React
+* Vite
+* Tailwind CSS
 
 ---
 
-# 📊 Signal Generation Engine
+## Algorithms
 
-The signal engine converts textual market discussions into quantitative indicators.
-
-## Sentiment Analysis
-
-A lexicon-based sentiment model evaluates market discussions and generates sentiment scores.
-
-```text
-Positive Discussion
-        │
-        ▼
-  Positive Score
-
-Negative Discussion
-        │
-        ▼
-  Negative Score
-```
+* Greedy Cost Function
+* Hungarian Algorithm
+* Haversine Distance Calculation
 
 ---
 
-## TF-IDF Keyword Momentum
+## Integrations
 
-TF-IDF is used to identify keywords gaining importance within the collected market discussions.
-
-Example:
-
-```text
-NIFTY
-BANKNIFTY
-BREAKOUT
-SUPPORT
-RESISTANCE
-BULLISH
-BEARISH
-```
-
-The system can track changes in keyword relevance over time.
+* Google Maps API
+* Distance Matrix API
+* Directions API
 
 ---
 
-## Volume Velocity
+## DevOps & Tools
 
-The system monitors the rate at which market-related discussions are increasing or decreasing.
-
-```text
-Discussion Volume
-       │
-       ▼
- ┌───────────────┐
- │ Time Window   │
- └───────┬───────┘
-         │
-         ▼
- Volume Velocity
-```
-
-A sudden increase in discussion volume can indicate increased market attention.
-
----
-
-# 📈 Composite Trading Signal
-
-The final quantitative signal combines multiple market indicators:
-
-```text
-                 ┌─────────────────┐
-                 │   Sentiment     │
-                 └────────┬────────┘
-                          │
-                          ▼
-                 ┌─────────────────┐
-                 │ TF-IDF Momentum │
-                 └────────┬────────┘
-                          │
-                          ▼
-                 ┌─────────────────┐
-                 │ Volume Velocity │
-                 └────────┬────────┘
-                          │
-                          ▼
-                 ┌─────────────────┐
-                 │ Composite Signal│
-                 └────────┬────────┘
-                          │
-                          ▼
-                 ┌─────────────────┐
-                 │ Confidence      │
-                 │ Interval        │
-                 └─────────────────┘
-```
-
-The resulting signal provides a quantitative representation of market discussion dynamics.
-
-> **Note:** The generated signal is an analytical indicator and should not be treated as financial advice or a standalone trading strategy.
-
----
-
-# 📐 Statistical Confidence Estimation
-
-Bootstrap resampling is used to estimate confidence intervals around generated signals.
-
-This provides additional statistical context instead of relying solely on a single point estimate.
-
-```text
-Collected Data
-      │
-      ▼
-Bootstrap Samples
-      │
-      ▼
-Signal Distribution
-      │
-      ▼
-Confidence Interval
-```
-
----
-
-# 📊 Memory-Efficient Visualization
-
-The visualization layer is designed to handle large datasets without loading the entire dataset into memory.
-
-### Techniques Used
-
-* Reservoir Sampling
-* Chunked PyArrow dataset reading
-* Streaming processing
-* Incremental aggregation
-
-This makes the system more suitable for large-scale market discussion datasets.
-
----
-
-# 📉 Generated Analytics
-
-After successful execution, the system generates analytical visualizations.
-
-### Signal Time Series
-
-```text
-output/plots/
-└── signal_timeseries.png
-```
-
-Displays market signal behavior over time.
-
-### Volume Heatmap
-
-```text
-output/plots/
-└── volume_heatmap.png
-```
-
-Visualizes discussion volume and market attention patterns.
+* Docker
+* Docker Compose
+* npm Workspaces
 
 ---
 
 # 📂 Project Structure
 
 ```text
-market-intel-system/
+smart-cab-dispatch-system/
 │
-├── src/
+├── packages/
 │   │
-│   ├── scraper/
-│   │   ├── selenium_scraper.py
-│   │   ├── rate_limiter.py
-│   │   └── mock_generator.py
+│   ├── server/
+│   │   ├── controllers/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   ├── services/
+│   │   └── ...
 │   │
-│   ├── processing/
-│   │   ├── text_cleaner.py
-│   │   └── normalizer.py
+│   ├── admin-portal/
+│   │   ├── src/
+│   │   └── ...
 │   │
-│   ├── storage/
-│   │   ├── parquet_writer.py
-│   │   ├── simhash.py
-│   │   └── schema.py
+│   ├── guest-app/
+│   │   ├── src/
+│   │   └── ...
 │   │
-│   ├── signals/
-│   │   ├── tfidf.py
-│   │   ├── sentiment.py
-│   │   ├── signal_engine.py
-│   │   └── confidence.py
-│   │
-│   └── visualization/
-│       └── streaming_plotter.py
+│   └── shared/
+│       └── ...
 │
-├── config/
-│   └── settings.py
-│
-├── data/
-│   └── processed/
-│
-├── output/
-│   └── plots/
-│
-├── docs/
-│   └── TECHNICAL_APPROACH.md
-│
-├── main.py
-├── requirements.txt
+├── package.json
+├── docker-compose.yml
 └── README.md
 ```
 
 ---
 
-# 🛠 Technology Stack
+# 🔄 Request-to-Dispatch Flow
 
-## Data Collection
-
-* Python
-* Selenium
-* Undetected ChromeDriver
-
----
-
-## Data Processing
-
-* Python
-* NLP / Text Processing
-* Hashing
-* SimHash
-* Locality-Sensitive Hashing
-
----
-
-## Analytics
-
-* TF-IDF
-* Sentiment Analysis
-* Bootstrap Statistics
-* Volume Velocity
-
----
-
-## Storage
-
-* Apache Parquet
-* PyArrow
-* Snappy Compression
-
----
-
-## Visualization
-
-* Matplotlib
-* Reservoir Sampling
-* Streaming Data Processing
-
----
-
-# ⚡ Performance & Scalability
-
-The architecture focuses on efficient processing of large volumes of social-market data.
-
-### Algorithmic Efficiency
-
-| Component                | Approach             |
-| ------------------------ | -------------------- |
-| Exact Deduplication      | O(1) Hash Lookup     |
-| Near-Duplicate Detection | 64-bit SimHash / LSH |
-| Data Storage             | Columnar Parquet     |
-| Compression              | Snappy               |
-| Large Dataset Processing | Chunked PyArrow      |
-| Visualization            | Reservoir Sampling   |
-| Data Collection          | Producer-Consumer    |
-| Rate Control             | Token Bucket         |
-
----
-
-# 🔄 Pipeline Architecture
-
-The system separates data collection from processing using a Producer-Consumer architecture.
+A typical ride request follows the following workflow:
 
 ```text
-                 ┌─────────────────┐
-                 │ Scraper Workers │
-                 └────────┬────────┘
-                          │
-                          ▼
-                 ┌─────────────────┐
-                 │ Processing Queue│
-                 └────────┬────────┘
-                          │
-                          ▼
-              ┌───────────────────────┐
-              │ Processing Workers    │
-              │                       │
-              │ • Cleaning            │
-              │ • Deduplication       │
-              │ • Feature Extraction │
-              └───────────┬───────────┘
-                          │
-                          ▼
-                 ┌─────────────────┐
-                 │ Parquet Storage │
-                 └────────┬────────┘
-                          │
-                          ▼
-                 ┌─────────────────┐
-                 │ Signal Engine   │
-                 └────────┬────────┘
-                          │
-                          ▼
-                 ┌─────────────────┐
-                 │ Visualization  │
-                 └─────────────────┘
-```
-
-This architecture allows the collection and processing stages to scale independently.
-
----
-
-# 📊 Sample Output
-
-After running the pipeline, generated files can be found in:
-
-### Processed Market Data
-
-```text
-data/processed/date=YYYY-MM-DD/
-```
-
-Contains cleaned and deduplicated Parquet datasets.
-
-### Analytical Results
-
-```text
-output/plots/
-```
-
-Contains:
-
-```text
-signal_timeseries.png
-volume_heatmap.png
+Guest Creates Ride
+        │
+        ▼
+Backend Receives Request
+        │
+        ▼
+Find Available Drivers
+        │
+        ▼
+Calculate Driver Costs
+        │
+        ├───────────────┐
+        │               │
+        ▼               ▼
+ Single Request     Batch Requests
+        │               │
+        ▼               ▼
+ Greedy Strategy   Hungarian Algorithm
+        │               │
+        └───────┬───────┘
+                │
+                ▼
+        Driver Assignment
+                │
+                ▼
+        Real-Time Notification
+                │
+                ▼
+         Driver Accepts
+                │
+                ▼
+          Trip Begins
+                │
+                ▼
+       Live Trip Tracking
+                │
+                ▼
+         Trip Completed
+                │
+                ▼
+       Driver Available Again
 ```
 
 ---
 
-# 🧪 Testing
+# 📊 Fleet Management
 
-Use mock mode to test the complete pipeline without relying on live data collection:
+The Operations Dashboard provides centralized visibility into the fleet.
+
+Administrators can monitor:
+
+* Available drivers
+* Busy drivers
+* Offline drivers
+* Active trips
+* Pending requests
+* Driver assignments
+* Live trip locations
+* Dispatch status
+
+This enables operators to make informed decisions during large-scale transportation operations.
+
+---
+
+# 🧠 Dispatch Optimization Strategy
+
+ApnaRide uses different optimization strategies based on workload.
+
+| Scenario          | Strategy                | Objective                     |
+| ----------------- | ----------------------- | ----------------------------- |
+| Single Request    | Greedy Cost Function    | Fast Assignment               |
+| Multiple Requests | Hungarian Algorithm     | Global Optimization           |
+| Active Trips      | Dynamic Re-optimization | Fleet Efficiency              |
+| Missing Maps API  | Haversine Distance      | Fallback Distance Calculation |
+
+---
+
+# 🐳 Docker Support
+
+The application is designed to run with Docker and Docker Compose.
+
+Docker can be used to manage:
+
+* MongoDB
+* Backend
+* Frontend services
+* Application environments
+
+Example:
 
 ```bash
-python main.py \
-  --mock \
-  --hashtags "#nifty50" "#sensex" "#intraday" "#banknifty" \
-  --target-count 1200 \
-  --workers 4
+docker-compose up
 ```
 
-This is recommended for:
+Stop running containers:
 
-* Local development
-* Unit/integration testing
-* CI/CD pipelines
-* Performance benchmarking
-* Algorithm validation
+```bash
+docker-compose down
+```
 
 ---
 
-# 📚 Technical Documentation
+# 📈 Scalability
 
-For a deeper explanation of the system architecture, algorithmic decisions, performance trade-offs, and scalability considerations:
+The platform is designed around a modular architecture that allows individual components to evolve independently.
 
-```text
-docs/TECHNICAL_APPROACH.md
-```
+### Scalability Characteristics
 
-The document covers:
-
-* Architecture decisions
-* Deduplication strategy
-* Data storage design
-* Signal generation methodology
-* Memory optimization
-* Scalability strategy
-* Performance considerations
-
----
-
-# 🔒 Responsible Data Collection
-
-The system is intended for research, analytics, and market intelligence purposes.
-
-When collecting public online data, ensure that your implementation complies with:
-
-* Applicable laws and regulations
-* Platform terms of service
-* Rate limits
-* Authentication requirements
-* Privacy requirements
+* Monorepo-based modular development
+* Event-driven communication
+* Real-time Socket.io infrastructure
+* Separate frontend applications
+* Centralized backend API
+* Optimized dispatch algorithms
+* MongoDB-based persistence
+* Docker-based deployment
 
 ---
 
 # 📌 Project Highlights
 
-The Indian Market Intelligence System is designed to be:
+ApnaRide is designed to be:
 
-* ⚡ High Performance
-* 📈 Quantitative
+* ⚡ Real-Time
+* 🚖 Fleet Optimized
 * 🧠 Algorithm Driven
-* 💾 Memory Efficient
-* 📦 Big Data Ready
-* 🔄 Resilient
-* 🧩 Modular
+* 🔄 Event-Driven
+* 📦 Modular
 * 🚀 Scalable
-* 📊 Analytics Focused
-* 🧪 CI/CD Friendly
-* 🏗️ Production Oriented
+* 🔐 Role-Based Secure
+* 📍 Location Aware
+* 📊 Operations Focused
+* 🐳 Docker Ready
+* 📱 Responsive
+* 🏗️ Production Ready
+
+---
+
+# 🧪 Use Cases
+
+ApnaRide can be used for large-scale transportation scenarios such as:
+
+* 🏢 Corporate Events
+* 🎤 Conferences
+* ✈️ Airport Transfers
+* 🏨 Hotel Transportation
+* 🎓 University Events
+* 🎪 Large Public Events
+* 🚐 Corporate Fleet Operations
+* 👥 Group Transportation
 
 ---
 
 # 🚀 Status
 
-**Production-Oriented Research & Analytics System**
+**Production Ready**
 
-**Stack:** Python • Selenium • Undetected ChromeDriver • SimHash • LSH • TF-IDF • Parquet • PyArrow • Snappy • Matplotlib
+### Stack
+
+**Node.js • Express.js • MongoDB • Mongoose • React • Vite • Tailwind CSS • Socket.io • JWT • Google Maps API • Docker • Docker Compose • npm Workspaces**
